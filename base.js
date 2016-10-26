@@ -37,13 +37,12 @@ console.log(func2);  // 输出结果为 1
 func2();  // 报错  TypeError: number is not a function
 
 */
-// var  base = {};
 //注意在构建该购物车业务的 实现库时 先引用三个全局变量的数据文件 方便调试
 //productsdata.json 声明变量 productManager 使用前检查该变量是否被赋值
 //zhekoujson.js 声明变量
 //youhuijson 声明变量
-//
-var base = function newObjec(){
+//  
+  var base = function newObjec(){
 	//
 	var base = function baseNew()
       {
@@ -54,100 +53,246 @@ var base = function newObjec(){
       if (typeof(firstObj)) {
 
       }
-
-
     };
     base.greetTest = function greetTest(name)
     {
     	return "Hi" + name;
-    }
-    if (productManager===undefined) {
-    	//判断全局对象变量是否已经赋值
-    }
+    };
+   
+    
+    //这里为我们的base对象添加版本号 使用前检查版本号是否赋值 如果声明变量但未赋值则
+    //数值类型环境中 undefined 值会被转换为 NaN。
+    base.versionID = 1.0;
+    base.getProductsData = function getProductsData() {
+              // body...
+    if (typeof(productManager)===undefined) {
+            //判断全局对象变量是否已经赋值
     base.productsDianZiData = [];
-      base.productsRiYongPinData = [];
-        base.productsShiPInData = [];
-          base.productsJiuPinData = [];
-         //这里为我们的base对象添加版本号 使用前检查版本号是否赋值 如果声明变量但未赋值则
-         //数值类型环境中 undefined 值会被转换为 NaN。
-          base.versionID = 1.0;
+    base.productsRiYongPinData = [];
+    base.productsShiPInData = [];
+    base.productsJiuPinData = [];
+        }else{
+            this.productsDianZiData = productManager.productData[0].products;
+            this.productsShiPInData = productManager.productData[1].products;
+            this.productsRiYongPinData = productManager.productData[2].products;
+            this.productsJiuPinData = productManager.productData[3].products;
+           
+            }
+    } ;
+
             base.stringConvertInt = function stringConvertInt(str)
             {
                 return str.parseInt();
-            }
+            };
             base.stringConvertFloat = function stringConvertFloat(str)
             {
             	return str.parseFloat();
-            }
+            };
             base.stringConvertDouble = function stringConvertDouble(str)
             {
             	return str.parseDouble().ToFixed(2);
-            }
+            };
             base.showDianZi = function showDianZi()
             {
-            	if (typeof(productManager)===undefined) {
+            	if (typeof(this.productsDianZiData)===undefined) {
 
             	}else{
-            		this.productsDianZiData = productManager.productData[0];
-            	
-            		if (this.productsDianZiData.length==0) {
-
-            		}else
-            		{
-            			
-            		}
-
+                    this.tmplStrDianZi = '';
+                    this.showArrObj(this.productsDianZiData,0);
             	}
-            }
+            };
              base.showShiPin = function showShiPin()
             {
-            	if (typeof(productManager)===undefined) {
+            	if (typeof(this.productsShiPInData)===undefined) {
 
             	}else{
-            		this.productsShiPInData = productManager.productData[1];
-            		if (this.productsShiPInData.length==0) {
-
-            		}else
-            		{
-            			
-            		}
-
+                    this.tmplStrShiPin = '';
+                    this.showArrObj(this.productsShiPInData,1);
             	}
-            }
+            };
              base.showRiYongPin = function showRiYongPin()
             {
-            	if (typeof(productManager)===undefined) {
-
+                
+            	if (typeof(this.productsRiYongPinData)===undefined) {
+ 
             	}else{
-            		this.productsRiYongPinData = productManager.productData[2];
-            	if (this.productsRiYongPinData.length==0) {
-
-            		}else
-            		{
-            			
-            		}
-
+            	 
+                    this.tmplStrRiYongPin = '';
+                    this.showArrObj(this.productsRiYongPinData,2);
             	}
-            }
+            };
              base.showJiuLei = function showJiuLei()
             {
-            	if (typeof(productManager)===undefined) {
+            	if (typeof(this.productsJiuPinData) === "undefined") {
 
             	}else{
-            		this.productsJiuPinData = productManager.productData[3];
-            		if (this.productsJiuPinData.length==0) {
-
-            		}else
-            		{
-
-            		}
+            		this.tmplStrJiuLei = '';
+                    this.showArrObj(this.productsJiuPinData,3);
+            	
             	}
+            };
+
+      
+        base.showArrObj = function showArrObj(objArr,currentListNum) {
+            // body...
+            
+             if (this.isArrayBase(objArr)) {
+
+                if (objArr.length === 0) {
+               
+                }else
+                {
+                    for(var index in objArr) 
+                    { 
+                        var dic = objArr[index];
+                        
+                        this.showDicObj(dic,index,currentListNum);
+                    } 
+                 if (currentListNum === 0) {
+                 this.tmplStrDianZi = '<ul id = "dianzi"><p>电子类产品条目:</p>'+ this.tmplStrDianZi + '</ul>';
+                }
+
+              if (currentListNum === 1) {
+
+                this.tmplStrRiYongPin = '<ul id = "riyongpin"><p>日用类产品条目:</p>'+ this.tmplStrRiYongPin + '</ul>';
+              }
+              if (currentListNum === 2) {
+
+                this.tmplStrShiPin ='<ul id = "shipin"><p>食品类条目:</p>'+ this.tmplStrShiPin + '</ul>';
+              }
+              if (currentListNum === 3) {
+                this.tmplStrJiuLei = '<ul id = "jiulei"><p>酒用类产品条目:</p>'+ this.tmplStrJiuLei + '</ul>';
+              }
+                }
+               
+             }
+
+            
+        };
+          base.showDicObj = function showDicObj(objDic,index,currentListNum) {
+            // body...
+            // 
+              
+            if (typeof(objDic) === 'object') {
+               for(var key in objDic)
+               { 
+              if (key === 'productName')
+              {
+                if (currentListNum === 0) {
+                 this.tmplStrDianZi = this.tmplStrDianZi + '<li>' + objDic[key] + '<div><a>添加到购物车</a></div> <div><a>从购物车删除</a></div></li>';
+                }
+
+              if (currentListNum === 1) {
+
+                this.tmplStrRiYongPin = this.tmplStrRiYongPin + '<li>' + objDic[key] + '<div><a>添加到购物车</a></div> <div><a>从购物车删除</a></div></li>';
+              }
+              if (currentListNum === 2) {
+
+                this.tmplStrShiPin = this.tmplStrShiPin + '<li>' + objDic[key] + '<div><a>添加到购物车</a></div> <div><a>从购物车删除</a></div></li>';
+              }
+              if (currentListNum === 3) {
+                this.tmplStrJiuLei = this.tmplStrJiuLei + '<li>' + objDic[key] + '<div><a>添加到购物车</a></div> <div><a>从购物车删除</a></div></li>';
+              }
+        
+              }
+               }
+               
             }
+ 
+        };
+        base.isArrayBase = function isArrayBase(obj){
+              var boolValue = false;
+            if (typeof(obj) === 'object') {
+     
+                if (obj == null) {
+                    boolValue = false;
+                     
+                }else
+                {
+                  
+                    if (typeof(obj.length) === 'number' ) {
+                       
+                        if (typeof(obj.slice) === 'function') {
+                         
+                            boolValue = true;
+                        }
+                    }
+                }
+                
+            }else
+            {
+               
+                boolValue = false;
+            }
+             return boolValue;
+        };
+        base.isEmptyBase = function isEmptyBase(obj) {
+            // body...
+            // 
+            var boolValue = false;
+            if (typeof(obj) === "undefined") {
+                boolValue == true ;
+            }
+
+            if (typeof(obj) === "string") {
+                if (obj.length == 0) {
+                   boolValue = true;
+                }
+            }
+            if (typeof(obj) === "object") {
+                if (obj == null) {
+                    boolValue = true;
+                }
+            }
+
+                 return boolValue;
+        };
+
+       base.readyHtmlElement = function readyHtmlElement(){
+
+          var listStart = document.getElementById('listStart');
+          
+          document.write('<h1>阿拉丁的商场提供商品:</h1>');
+
+          document.write(this.tmplStrDianZi);
+
+          document.write(this.tmplStrShiPin);
+
+          document.write(this.tmplStrRiYongPin);  
+        
+          document.write(this.tmplStrJiuLei);
+
+
+        
+      };
+       base.addClick = function addClick(argument) {
+           // body...
+       };
+       base.removeClick = function removeClick(argument) {
+           // body...
+       };
+       base.showSelectedItems = function showSelectedItems(argument) {
+           // body...
+       };
+       base.showSumsPrice = function showSumsPrice(argument) {
+           // body...
+       };
+
+
+
      return base;
    
 }();
 
-base();
+base.getProductsData();
+window.onload = function () {
+    // body...
+    base.showDianZi();
+    base.showRiYongPin();
+    base.showShiPin(); 
+    base.showJiuLei(); 
+    base.readyHtmlElement();
+};
 
 
 
