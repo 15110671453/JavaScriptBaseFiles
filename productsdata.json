@@ -31,8 +31,36 @@ var productManager = {
                                ]
                    
                    },
+                 
                    
-                   {"productCatogery":1,
+                   {
+                   "productCatogery":1,
+                   "products":[
+                               {"productID":"day_0",
+                               "productName":"餐巾纸",
+                               "isOnline":1,
+                               "productValue":101.0003
+                               },
+                               {"productID":"day_1",
+                               "productName":"收纳箱",
+                               "isOnline":1,
+                               "productValue":102.00007
+                               },
+                               {"productID":"day_2",
+                               "productName":"咖啡杯",
+                               "isOnline":1,
+                               "productValue":103
+                               },
+                               {
+                               "productID":"day_3",
+                               "productName":"雨伞",
+                               "isOnline":1,
+                               "productValue":104.12234
+                               }
+                               ]
+                   },
+
+                   {"productCatogery":2,
                    "products":[
                                {"productID":"food_0",
                                "productName":"面包",
@@ -62,33 +90,6 @@ var productManager = {
                                "productValue":100
                                }
                                
-                               ]
-                   },
-                   
-                   {
-                   "productCatogery":2,
-                   "products":[
-                               {"productID":"day_0",
-                               "productName":"餐巾纸",
-                               "isOnline":1,
-                               "productValue":101
-                               },
-                               {"productID":"day_1",
-                               "productName":"收纳箱",
-                               "isOnline":1,
-                               "productValue":102
-                               },
-                               {"productID":"day_2",
-                               "productName":"咖啡杯",
-                               "isOnline":1,
-                               "productValue":103
-                               },
-                               {
-                               "productID":"day_3",
-                               "productName":"雨伞",
-                               "isOnline":1,
-                               "productValue":104
-                               }
                                ]
                    },
                    
